@@ -62,8 +62,6 @@
             android:hint="@string/ip_request"
             android:background="@color/white"
             android:text="@={viewModel.ip}"/>
-
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

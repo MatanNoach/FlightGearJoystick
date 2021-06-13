@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.connect_button).setOnClickListener {
             if (validate()) {
                 viewModel.connect()
-                Log.d("test","Connected")
             }
         }
     }
