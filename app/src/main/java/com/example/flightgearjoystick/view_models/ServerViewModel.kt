@@ -1,11 +1,14 @@
 package com.example.flightgearjoystick.view_models
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flightgearjoystick.models.Server
+import java.lang.Exception
 
 class ServerViewModel : ViewModel(), Observable {
     var server: Server? = null
@@ -16,9 +19,17 @@ class ServerViewModel : ViewModel(), Observable {
     @Bindable
     var port = MutableLiveData<String>()
 
-    fun connect() {
-        server = Server(ip.value.toString(), port.value.toString().toInt())
-        server?.connect()
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun connect(): Result<String>? {
+        try {
+            if(server==null) {
+                server = Server(ip.value.toString(), port.value.toString().toInt())
+            }
+            return server?.connect()
+        }
+        catch (Excep:Exception){
+            return Result.failure(Excep)
+        }
     }
 
     fun setAileron(value: Double) {
