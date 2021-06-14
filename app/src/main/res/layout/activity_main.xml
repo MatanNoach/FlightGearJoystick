@@ -73,5 +73,12 @@
         android:text="@string/connect"
         >
     </Button>
+    <FrameLayout
+        android:id="@+id/joystick_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

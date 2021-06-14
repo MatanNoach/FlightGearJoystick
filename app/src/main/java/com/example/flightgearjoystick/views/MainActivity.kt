@@ -1,15 +1,15 @@
 package com.example.flightgearjoystick.views
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.example.flightgearjoystick.JoystickFragment
+import com.example.flightgearjoystick.JoystickListener
 import com.example.flightgearjoystick.R
 import com.example.flightgearjoystick.databinding.ActivityMainBinding
 import com.example.flightgearjoystick.view_models.ServerViewModel
@@ -17,7 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.NumberFormatException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),JoystickListener {
     lateinit var viewModel:ServerViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.port.observe(this,{
 //            Toast.makeText(this,"port changed",Toast.LENGTH_SHORT).show()
 //        })
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.joystick_fragment,JoystickFragment())
+            commit()
+        }
         findViewById<Button>(R.id.connect_button).setOnClickListener {
             if (validate()) {
                 viewModel.connect()
@@ -68,5 +72,10 @@ class MainActivity : AppCompatActivity() {
             isValid = false
         }
         return isValid
+    }
+    override fun onJoystickTouch(x: Double, y: Double) {
+//        Toast.makeText(this,"x = $x, y = $y",Toast.LENGTH_SHORT).show()
+        viewModel.setAileron(x)
+        viewModel.setElevator(y)
     }
 }
