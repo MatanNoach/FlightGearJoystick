@@ -16,6 +16,8 @@ class ServerViewModel : ViewModel(), Observable {
     @Bindable
     var ip = MutableLiveData<String>()
 
+    var test = MutableLiveData<Boolean>()
+
     @Bindable
     var port = MutableLiveData<String>()
 
@@ -24,6 +26,9 @@ class ServerViewModel : ViewModel(), Observable {
         try {
             if(server==null) {
                 server = Server(ip.value.toString(), port.value.toString().toInt())
+            }else{
+                server!!.ip = ip.value!!
+                server!!.port = port.value!!.toInt()
             }
             return server?.connect()
         }

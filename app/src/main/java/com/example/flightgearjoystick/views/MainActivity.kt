@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(),JoystickListener {
         super.onCreate(savedInstanceState)
         val  binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(ServerViewModel::class.java)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.joystick_fragment,JoystickFragment())
@@ -38,13 +40,13 @@ class MainActivity : AppCompatActivity(),JoystickListener {
                 var r:Result<String>? = null
                 CompletableFuture.supplyAsync {
                     this@MainActivity.runOnUiThread {
-                        Toast.makeText(this,"Connecting to server...",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,"Connecting to server...",Toast.LENGTH_SHORT).show()
                     }
                     r = viewModel.connect()
                 }.thenAccept {
-                    Log.d("test",r.toString())
+                    Log.d("result",r.toString())
                     this@MainActivity.runOnUiThread {
-                        Toast.makeText(applicationContext,r.toString(),Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext,r.toString(),Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -84,7 +86,6 @@ class MainActivity : AppCompatActivity(),JoystickListener {
         return isValid
     }
     override fun onJoystickTouch(x: Double, y: Double) {
-//        Toast.makeText(this,"x = $x, y = $y",Toast.LENGTH_SHORT).show()
         viewModel.setAileron(x)
         viewModel.setElevator(y)
     }
