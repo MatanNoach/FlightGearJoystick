@@ -63,9 +63,9 @@ class Joystick : SurfaceView, SurfaceHolder.Callback,View.OnTouchListener {
         // prevents from executing when the surface is not created
         if (holder.surface.isValid) {
             val myCanvas: Canvas = this.holder.lockCanvas()
-            val colors: Paint = Paint()
+            val colors = Paint()
             // clears the canvas before starts drawing
-            myCanvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR)
+            myCanvas.drawColor(Color.WHITE)
             // draw both circles of the joystick
             colors.setARGB(255, 50, 50, 50)
             myCanvas.drawCircle(centerX.toFloat(), centerY.toFloat(), baseRadius.toFloat(), colors)
