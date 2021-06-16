@@ -1,11 +1,15 @@
 package com.example.flightgearjoystick.views
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.flightgearjoystick.JoystickFragment
@@ -16,27 +20,35 @@ import com.example.flightgearjoystick.view_models.ServerViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.NumberFormatException
+import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity(),JoystickListener {
     lateinit var viewModel:ServerViewModel
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val  binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(ServerViewModel::class.java)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
-//        viewModel.ip.observe(this,{
-//            Toast.makeText(this,"ip changed",Toast.LENGTH_SHORT).show()
-//        })
-//        viewModel.port.observe(this,{
-//            Toast.makeText(this,"port changed",Toast.LENGTH_SHORT).show()
-//        })
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.joystick_fragment,JoystickFragment())
             commit()
         }
         findViewById<Button>(R.id.connect_button).setOnClickListener {
             if (validate()) {
-                viewModel.connect()
+                var r:Result<String>? = null
+                CompletableFuture.supplyAsync {
+                    this@MainActivity.runOnUiThread {
+                        Toast.makeText(this,"Connecting to server...",Toast.LENGTH_SHORT).show()
+                    }
+                    r = viewModel.connect()
+                }.thenAccept {
+                    Log.d("result",r.toString())
+                    this@MainActivity.runOnUiThread {
+                        Toast.makeText(applicationContext,r.toString(),Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -74,7 +86,6 @@ class MainActivity : AppCompatActivity(),JoystickListener {
         return isValid
     }
     override fun onJoystickTouch(x: Double, y: Double) {
-//        Toast.makeText(this,"x = $x, y = $y",Toast.LENGTH_SHORT).show()
         viewModel.setAileron(x)
         viewModel.setElevator(y)
     }

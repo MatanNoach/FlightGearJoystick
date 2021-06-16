@@ -74,11 +74,14 @@
         >
     </Button>
     <FrameLayout
+        android:paddingTop="77dp"
         android:id="@+id/joystick_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect_button"/>
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
