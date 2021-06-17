@@ -1,30 +1,33 @@
 package com.example.flightgearjoystick.views
 
-import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Button
-import android.widget.EditText
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.SeekBarBindingAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.flightgearjoystick.JoystickFragment
 import com.example.flightgearjoystick.JoystickListener
 import com.example.flightgearjoystick.R
 import com.example.flightgearjoystick.databinding.ActivityMainBinding
 import com.example.flightgearjoystick.view_models.ServerViewModel
+import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.lang.NumberFormatException
 import java.util.concurrent.CompletableFuture
 
 class MainActivity : AppCompatActivity(),JoystickListener {
     lateinit var viewModel:ServerViewModel
+    lateinit var rudder_slider:SeekBar
+    lateinit var throttle_slider:SeekBar
     @RequiresApi(Build.VERSION_CODES.N)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val  binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
@@ -35,6 +38,42 @@ class MainActivity : AppCompatActivity(),JoystickListener {
             replace(R.id.joystick_fragment,JoystickFragment())
             commit()
         }
+
+        rudder_slider = findViewById<SeekBar>(R.id.rudder_slider)
+        rudder_slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                viewModel.rudder_value.value=(p1/100F)
+                viewModel.setRudder()
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                viewModel.setRudder()
+                Toast.makeText(this@MainActivity,"onStopTracking ${viewModel.rudder_value.value}",Toast.LENGTH_SHORT).show()
+            }
+        })
+        throttle_slider = findViewById<SeekBar>(R.id.rudder_slider)
+        throttle_slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                viewModel.throttle_value.value=(p1/100F)
+                viewModel.setThrottle()
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                viewModel.setThrottle()
+                Toast.makeText(this@MainActivity,"onStopTracking ${viewModel.throttle_value}",Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
         findViewById<Button>(R.id.connect_button).setOnClickListener {
             if (validate()) {
                 var r:Result<String>? = null
@@ -89,4 +128,6 @@ class MainActivity : AppCompatActivity(),JoystickListener {
         viewModel.setAileron(x)
         viewModel.setElevator(y)
     }
+
 }
+

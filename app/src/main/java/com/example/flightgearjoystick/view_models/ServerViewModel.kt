@@ -21,6 +21,12 @@ class ServerViewModel : ViewModel(), Observable {
     @Bindable
     var port = MutableLiveData<String>()
 
+    @Bindable
+    var throttle_value = MutableLiveData<Float>()
+
+    @Bindable
+    var rudder_value = MutableLiveData<Float>()
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun connect(): Result<String>? {
         try {
@@ -46,6 +52,18 @@ class ServerViewModel : ViewModel(), Observable {
     fun setElevator(value: Double) {
         if (server != null) {
             server?.setElevator(value)
+        }
+    }
+
+    fun setThrottle() {
+        if (server != null) {
+            server?.setThrottle(throttle_value.value!!.toDouble())
+        }
+    }
+
+    fun setRudder() {
+        if (server != null) {
+            server?.setRudder(rudder_value.value!!.toDouble())
         }
     }
 
