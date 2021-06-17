@@ -15,11 +15,11 @@ class Server(var ip: String, var port: Int) {
     // thread pool for the setters
     var q: ExecutorService = Executors.newFixedThreadPool(10)
     var isConnected: Boolean = false
-    var tryConnect:Semaphore = Semaphore(1)
+    var tryConnect: Semaphore = Semaphore(1)
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun connect(): Result<String> {
-        if(!isConnected) {
+        if (!isConnected) {
             if (tryConnect.tryAcquire()) {
                 val fc: CompletableFuture<Result<String>> = CompletableFuture.supplyAsync {
                     try {
@@ -45,7 +45,7 @@ class Server(var ip: String, var port: Int) {
             } else {
                 return Result.failure(Exception("Already trying to connect to server"))
             }
-        }else{
+        } else {
             return Result.failure(Exception("Already connected to server"))
         }
     }
@@ -71,10 +71,8 @@ class Server(var ip: String, var port: Int) {
     fun setRudder(value: Double) {
         if (isConnected) {
             q.execute {
-                Runnable {
-                    out.print("set /controls/flight/rudder $value \r\n")
-                    out.flush()
-                }
+                out.print("set /controls/flight/rudder $value \r\n")
+                out.flush()
             }
         }
     }
@@ -82,10 +80,8 @@ class Server(var ip: String, var port: Int) {
     fun setThrottle(value: Double) {
         if (isConnected) {
             q.execute {
-                Runnable {
-                    out.print("set /controls/engines/current-engine/throttle $value \r\n")
-                    out.flush()
-                }
+                out.print("set /controls/engines/current-engine/throttle $value \r\n")
+                out.flush()
             }
         }
     }

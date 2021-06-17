@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(),JoystickListener {
             commit()
         }
 
-        rudder_slider = findViewById<SeekBar>(R.id.rudder_slider)
+        rudder_slider = findViewById(R.id.rudder_slider)
         rudder_slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(),JoystickListener {
                 Toast.makeText(this@MainActivity,"onStopTracking ${viewModel.rudder_value.value}",Toast.LENGTH_SHORT).show()
             }
         })
-        throttle_slider = findViewById<SeekBar>(R.id.rudder_slider)
+        throttle_slider = findViewById(R.id.throttle_slider)
         throttle_slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 viewModel.throttle_value.value=(p1/100F)
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(),JoystickListener {
     }
     override fun onJoystickTouch(x: Double, y: Double) {
         viewModel.setAileron(x)
-        viewModel.setElevator(y)
+        viewModel.setElevator(-y)
     }
 
 }
