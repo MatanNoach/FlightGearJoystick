@@ -5,12 +5,15 @@ The app we present using MVVM architecture, allows the user to control the fligh
 In the GIT folder of the FlightGearJoystick project there is the main branch with the lastest changes, a folder with PDFs explanations about the main classes. 
 Our project is devided to 3 main folders:
 
-####Model - the code that responsible to send the data to flightGear server.
+#### Model
+the code that responsible to send the data to flightGear server.
 
-####ViewModel - the code that responsible on passing the information from the user to the model.
+#### ViewModel
+the code that responsible on passing the information from the user to the model.
 By chanching the View the ViewModel is also changing (through data binding), and according to the change, different methods in the model are called. 
 
-####View - the code that responsible to the view the user see and use. In this case, the XML pages and the code behind it.
+#### View
+the code that responsible to the view the user see and use. In this case, the XML pages and the code behind it.
 
 
 ## Prerequests
@@ -29,16 +32,17 @@ In order to control a flight in flightgear on some device you will first need to
 After opening the app and changing the settings in flightgear, you now can control the flight!
 
 **In flightgear:**
-click the botton of ***Fly!***
-you can change the view of the plain using *shift+V*
-click the name of the plain, and then choose *Autostart*.
+1. click the botton of ***Fly!***
+2. you can change the view of the plain using *shift+V*
+3. click the name of the plain, and then choose *Autostart*.
 
 **In the app:**
-enter port 6400
-enter the ip of the device running the flightgear (you can use the ipconfig command in cmd)
-click the botton *connect*
+1. enter port 6400
+2. enter the ip of the device running the flightgear (you can use the ipconfig command in cmd)
+3. click the botton *connect*
 
 all is set, you are now controlling the flight with the sliders and the joystick.
+
 ***ENJOY THE FLIGHT***
 
 ## Link to UML of the project
