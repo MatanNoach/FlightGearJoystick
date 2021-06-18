@@ -54,6 +54,5 @@ all is set, you are now controlling the flight with the sliders and the joystick
 ![FlightGearJoystick UML](https://user-images.githubusercontent.com/61862949/122601100-7788b400-d079-11eb-92b7-4f9dc6df7287.png)
 
 ## link to the video
-
-
+https://youtu.be/dAj_clh6YFs
 
