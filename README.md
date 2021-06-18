@@ -6,15 +6,18 @@ In the GIT folder of the FlightGearJoystick project there is the main branch wit
 Our project is devided to 3 main folders:
 
 #### Model
-the code that responsible to send the data to flightGear server.
+The code for all the models in the application.
+The code has the 'server' class which is responsible communicating with the flightgear server.
 
 #### ViewModel
-the code that responsible on passing the information from the user to the model.
+The code that responsible on passing the information from the user to the model.
 By chanching the View the ViewModel is also changing (through data binding), and according to the change, different methods in the model are called. 
 
 #### View
-the code that responsible to the view the user see and use. In this case, the XML pages and the code behind it.
-
+The code that responsible for the UI logic of the the view. Among it's responsibilities: 
+* Creating the joystick and visualize it's movements
+* Handling events in the main activity
+* Inform the user of events occurring behind the scenes in the app
 
 ## Prerequests
 In order to use our app, you will need to install it.
@@ -22,24 +25,25 @@ In order to use our app, you will need to install it.
 **Installing the app:**
 clone our github, open the app with android studio and then you will be able to run it with the android studio emulator, or using android device.
 
-**Changing the settings of flightGear**
+**Changing the settings of flightGear:**
 In order to control a flight in flightgear on some device you will first need to change the settings of the flightgear on the device that have the flightgear you want to control:
 1. go to *settings*
 2. under the subtitle of Additional Settings change the text to: *--telnet=socket,in,10,127.0.0.1,6400,tcp*
 
+**NOTE:** The flightgear settings are interchangeable. You can use different ip and port, but notice you insert the right data when you use the app
 
 ## First running
 After opening the app and changing the settings in flightgear, you now can control the flight!
 
 **In flightgear:**
-1. click the botton of ***Fly!***
+1. click the button of ***Fly!***
 2. you can change the view of the plain using *shift+V*
 3. click the name of the plain, and then choose *Autostart*.
 
 **In the app:**
 1. enter port 6400
 2. enter the ip of the device running the flightgear (you can use the ipconfig command in cmd)
-3. click the botton *connect*
+3. click the button *connect*
 
 all is set, you are now controlling the flight with the sliders and the joystick.
 
@@ -47,6 +51,7 @@ all is set, you are now controlling the flight with the sliders and the joystick
 
 ## Link to UML of the project
 
+![Untitled Workspace](https://user-images.githubusercontent.com/61862949/122591069-18bc3e00-d06b-11eb-8fca-b047e8c78dd2.jpg)
 
 ## link to the video
 
