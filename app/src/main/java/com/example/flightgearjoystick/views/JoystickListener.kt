@@ -1,4 +1,4 @@
-package com.example.flightgearjoystick
+package com.example.flightgearjoystick.views
 
 /**
  * The interface enforces each joystick listener to implement:

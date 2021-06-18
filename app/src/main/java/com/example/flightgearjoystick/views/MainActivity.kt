@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.flightgearjoystick.JoystickListener
 import com.example.flightgearjoystick.R
 import com.example.flightgearjoystick.databinding.ActivityMainBinding
 import com.example.flightgearjoystick.view_models.ServerViewModel
@@ -28,9 +27,9 @@ import java.util.concurrent.CompletableFuture
  * throttle_slider - The throttle slider
  */
 class MainActivity : AppCompatActivity(), JoystickListener {
-    lateinit var viewModel: ServerViewModel
-    lateinit var rudder_slider: SeekBar
-    lateinit var throttle_slider: SeekBar
+    private lateinit var viewModel: ServerViewModel
+    private lateinit var rudder_slider: SeekBar
+    private lateinit var throttle_slider: SeekBar
 
     /**
      * The function performs initialization of multiple UI objects in the main activity
@@ -107,7 +106,7 @@ class MainActivity : AppCompatActivity(), JoystickListener {
     /**
      * The function validates the data fields required before connecting the server
      */
-    fun validate(): Boolean {
+    private fun validate(): Boolean {
         // get the ip and port fields and layouts
         val ip = findViewById<TextInputEditText>(R.id.ip)
         val ipLayout = findViewById<TextInputLayout>(R.id.ip_layout)

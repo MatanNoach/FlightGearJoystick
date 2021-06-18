@@ -1,4 +1,4 @@
-package com.example.flightgearjoystick.models
+package com.example.flightgearjoystick.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +10,6 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
-import com.example.flightgearjoystick.JoystickListener
 
 /**
  * The class draws the joystick and create it's visual functionality
@@ -22,11 +21,11 @@ import com.example.flightgearjoystick.JoystickListener
  * listener - A listener to be notified when an event is occurring
  */
 class Joystick : SurfaceView, SurfaceHolder.Callback, View.OnTouchListener {
-    var centerX: Double = 0.0
-    var centerY: Double = 0.0
-    var baseRadius: Double = 0.0
-    var hatRadius: Double = 0.0
-    lateinit var listener: JoystickListener
+    private var centerX: Double = 0.0
+    private var centerY: Double = 0.0
+    private var baseRadius: Double = 0.0
+    private var hatRadius: Double = 0.0
+    private lateinit var listener: JoystickListener
 
     constructor(ctx: Context) : super(ctx) {
         this.holder.addCallback(this)
@@ -69,7 +68,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, View.OnTouchListener {
     /**
      * The function set up the dimensions of the joystick before drawing
      */
-    fun setupDimensions() {
+    private fun setupDimensions() {
         centerX = width / 2.toDouble()
         centerY = height / 2.toDouble()
         baseRadius = Math.min(width, height) / 3.toDouble()
@@ -79,7 +78,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, View.OnTouchListener {
     /**
      * The function draws the joystick on a canvas
      */
-    fun drawJoystick(newX: Float, newY: Float) {
+    private fun drawJoystick(newX: Float, newY: Float) {
         // prevents from executing when the surface is not created
         if (holder.surface.isValid) {
             val myCanvas: Canvas = this.holder.lockCanvas()

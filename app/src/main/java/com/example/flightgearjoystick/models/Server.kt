@@ -18,11 +18,11 @@ import java.util.concurrent.*
  * tryConnect - A semaphore that prevents two from trying to connect the server simultaneously
  */
 class Server(var ip: String, var port: Int) {
-    lateinit var fg: Socket
-    lateinit var out: PrintWriter
-    var q: ExecutorService = Executors.newFixedThreadPool(10)
-    var isConnected: Boolean = false
-    var tryConnect: Semaphore = Semaphore(1)
+    private lateinit var fg: Socket
+    private lateinit var out: PrintWriter
+    private var q: ExecutorService = Executors.newFixedThreadPool(10)
+    private var isConnected: Boolean = false
+    private var tryConnect: Semaphore = Semaphore(1)
 
     /**
      * The function connects to the flight gear server
