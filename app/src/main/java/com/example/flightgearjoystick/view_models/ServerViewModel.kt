@@ -28,10 +28,10 @@ class ServerViewModel : ViewModel(), Observable {
     var port = MutableLiveData<String>()
 
     @Bindable
-    var throttle_value = MutableLiveData<Float>()
+    var throttle_value = MutableLiveData(0F)
 
     @Bindable
-    var rudder_value = MutableLiveData<Float>()
+    var rudder_value = MutableLiveData(0F)
 
     /**
      * The function connect app to the server
