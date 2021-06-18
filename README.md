@@ -49,7 +49,7 @@ all is set, you are now controlling the flight with the sliders and the joystick
 
 ***ENJOY THE FLIGHT***
 
-## Link to UML of the project
+## UML of the project
 
 ![Untitled Workspace](https://user-images.githubusercontent.com/61862949/122591069-18bc3e00-d06b-11eb-8fca-b047e8c78dd2.jpg)
 
